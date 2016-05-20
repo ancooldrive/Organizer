@@ -298,7 +298,7 @@ begin
   inherited Create(AOwner);
 
   FAnimatedFloat := TAnimatedFloat.Create;
-  FAnimatedFloat.Time := 1000;
+  FAnimatedFloat.Time := 500;
   FAnimatedFloat.AnimatedFloatType := aftTangensH;
   FAnimatedFloat.AnimatedFloatEvent := @AnimatedFloatEvent;
 

@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="23"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
       </Unit0>
       <Unit1>
         <Filename Value="../Source/Forms/uMainForm.pas"/>
@@ -17,9 +17,9 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="225"/>
+        <TopLine Value="215"/>
         <CursorPos X="21" Y="240"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
         <Bookmarks Count="2">
           <Item0 Y="170" ID="2"/>
           <Item1 X="6" Y="111" ID="1"/>
@@ -32,7 +32,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="11"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
       </Unit2>
       <Unit3>
         <Filename Value="../Source/OrganizerControls/uOrganizerControls.pas"/>
@@ -40,7 +40,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="1791"/>
         <CursorPos X="32" Y="1804"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -49,21 +49,21 @@
         <ComponentName Value="AddEditCalendarEventForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="41"/>
+        <TopLine Value="25"/>
         <CursorPos X="52" Y="42"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="82"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="../Source/System/uOrganizerForm.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="296"/>
-        <CursorPos X="27" Y="301"/>
-        <UsageCount Value="53"/>
+        <TopLine Value="614"/>
+        <CursorPos Y="500"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
