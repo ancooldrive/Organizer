@@ -1,0 +1,646 @@
+unit uOrganizerForm;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Forms, Controls, ExtCtrls, Graphics,
+  LMessages,
+  uAnimatedFloat,
+  BGRAGraphicControl, BGRABitmap, BGRABitmapTypes;
+
+type
+
+  { TOrganizerPopup }
+
+  TOrganizerPopup = class(THintWindow)
+  private
+    FAnimatedFloat: TAnimatedFloat;
+    function GetIsMouseIn: Boolean;
+    function GetHeightInternal: Integer;
+    procedure AnimatedFloatEvent(Sender: TObject; CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+
+    procedure ShowAnimation;
+
+    property IsMouseIn: Boolean read GetIsMouseIn;
+  end;
+
+  TOrganizerForm = class;
+
+  { TOrganizerModalWindow }
+
+  TOrganizerModalWindow = class(THintWindow)
+  private
+    FModalForm: TOrganizerForm;
+    FContainerWindow: THintWindow;
+    FTransparentAnimation: TAnimatedFloat;
+    FResizeContainerWindowEnabled: Boolean;
+
+    procedure OnTransparentAnimationEvent(Sender: TObject; CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+    procedure ResizeContainerWindow;
+  protected
+    procedure BoundsChanged; override;
+  public
+    constructor Create(ModalForm: TOrganizerForm); reintroduce;
+    destructor Destroy; override;
+
+    procedure ShowModal; reintroduce;
+    procedure Hide;
+  end;
+
+  { TOrganizerForm }
+
+  TOrganizerForm = class(TForm)
+  private
+    FOwnerForm: TOrganizerForm;
+    FFirstActive: Boolean;
+    FToClose: Boolean;
+
+    //TransparentModal
+    FModalWindowList: TList;
+
+    FTransparentAnimation: TAnimatedFloat;
+    FTransparentPanel: TPanel;
+    FTransparentImage: TImage;
+    FTransparentBackground: TBGRAGraphicControl;
+
+    //OrganizerPopup
+    FOrganizerPopupList: TList;
+
+    procedure UpdateModalWindows;
+    procedure ResizeModalWindow(ModalWindow: TOrganizerModalWindow);
+    procedure AddModalWindow(ModalWindow: TOrganizerModalWindow);
+    procedure RemoveModalWindow(ModalWindow: TOrganizerModalWindow);
+
+    procedure AddOrganizerPopup(OrganizerPopup: TOrganizerPopup);
+    procedure RemoveOrganizerPopup(OrganizerPopup: TOrganizerPopup);
+    procedure UpdateOrganizerPopup;
+
+    function GetIsMainform: Boolean;
+    procedure ShowTransparentBackground(InternalForm: TOrganizerForm);
+    procedure HideTransparentBackground;
+    procedure OnTransparentAnimationEvent(Sender: TObject; CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+    procedure OnDeactivateInternal(Sender: TObject);
+    procedure OnUserInputInternal(Sender: TObject; Msg: Cardinal);
+  protected
+    procedure Activate; override;
+    procedure BoundsChanged; override;
+  public
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
+
+    procedure Close;
+
+    procedure TransparentShowModal;
+    procedure TransparentShowModal2;
+
+    property OwnerInternalForm: TOrganizerForm read FOwnerForm;
+    property IsMainForm: Boolean read GetIsMainform;
+  end;
+
+function GetLastParent(Control: TWinControl): TWinControl;
+function GetParentForm(Control: TWinControl): TForm;
+
+implementation
+
+function GetLastParent(Control: TWinControl): TWinControl;
+begin
+  Result:= nil;
+  if Control <> nil then
+  begin
+    if Control.Parent <> nil then
+      Result:= GetLastParent(Control.Parent)
+    else
+      Result:= Control;
+  end;
+end;
+
+function GetParentForm(Control: TWinControl): TForm;
+  function GetParent(Control: TWinControl): TWinControl;
+  begin
+    Result:= nil;
+    if Control <> nil then
+    begin
+      if Control is TForm then
+        Result := Control
+      else
+        if Control.Parent <> nil then
+          Result:= GetParent(Control.Parent)
+        else
+          Result:= Control;
+    end;
+  end;
+var
+  vWinControl: TWinControl;
+begin
+  vWinControl := GetParent(Control);
+  if Assigned(vWinControl) and (vWinControl is TForm) then
+    Result := TForm(vWinControl)
+  else
+    Result := nil;
+end;
+
+{ TOrganizerModalWindow }
+
+procedure TOrganizerModalWindow.OnTransparentAnimationEvent(Sender: TObject;
+  CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+var
+  vPoint: TPoint;
+  vTempWidth,
+  vtempHeight: Double;
+begin
+  AlphaBlendValue := Round(CurrentValue);
+
+
+  //vPoint := FModalForm.OwnerInternalForm.ClientToScreen(Point(0,0));
+  //vTempWidth := FModalForm.OwnerInternalForm.Width * 0.8;
+  //vtempHeight := FModalForm.OwnerInternalForm.Height * 0.8;
+  //Width := Round(vTempWidth + (FModalForm.OwnerInternalForm.Width - vTempWidth) * CurrentValue / 100);
+  //Height := Round(vtempHeight + (FModalForm.OwnerInternalForm.Height - vtempHeight) * CurrentValue / 100);
+  //Left := vPoint.X + Round((FModalForm.OwnerInternalForm.Width - Width) / 2);
+  //Top := vPoint.Y + Round((FModalForm.OwnerInternalForm.Height - Height) / 2);
+
+  FContainerWindow.AlphaBlendValue := Round(CurrentValue * 255 / 100);
+
+  FResizeContainerWindowEnabled := CurrentProgressProcent = 100;
+end;
+
+procedure TOrganizerModalWindow.ResizeContainerWindow;
+begin
+  if Assigned(FContainerWindow) then
+  begin
+    FContainerWindow.Left := Left + Round((Width - FContainerWindow.Width) / 2);
+    FContainerWindow.Top := Top + Round((Height - FContainerWindow.Height) / 2);
+  end;
+end;
+
+procedure TOrganizerModalWindow.BoundsChanged;
+begin
+  inherited BoundsChanged;
+  if FResizeContainerWindowEnabled then
+    ResizeContainerWindow;
+end;
+
+constructor TOrganizerModalWindow.Create(ModalForm: TOrganizerForm);
+begin
+  inherited Create(ModalForm.OwnerInternalForm);
+  FModalForm := ModalForm;
+
+  FResizeContainerWindowEnabled := False;
+
+  with TPanel.Create(Self) do
+  begin
+    Parent := Self;
+    Align := alClient;
+    Color := clBlack;
+    BevelOuter := TPanelBevel.bvNone;
+    Caption := '';
+  end;
+
+
+  AlphaBlend := True;
+  AlphaBlendValue := 0;
+
+  FContainerWindow := THintWindow.Create(FModalForm.OwnerInternalForm);
+  FModalForm.Parent := FContainerWindow;
+  FContainerWindow.AlphaBlend := True;
+  FContainerWindow.AlphaBlendValue := 0;
+  FContainerWindow.AutoSize := True;
+
+  FTransparentAnimation := TAnimatedFloat.Create;
+  FTransparentAnimation.Time := 500;
+  FTransparentAnimation.AnimatedFloatType := aftTangensH;
+  FTransparentAnimation.AnimatedFloatEvent := @OnTransparentAnimationEvent;
+
+  FModalForm.OwnerInternalForm.AddModalWindow(Self);
+end;
+
+destructor TOrganizerModalWindow.Destroy;
+begin
+  FModalForm.OwnerInternalForm.RemoveModalWindow(Self);
+
+  FTransparentAnimation.Free;
+
+  FContainerWindow.Free;
+  FContainerWindow := nil;
+  inherited Destroy;
+end;
+
+procedure TOrganizerModalWindow.ShowModal;
+//var
+//  vPoint: TPoint;
+begin
+  FModalForm.OwnerInternalForm.ResizeModalWindow(Self);
+
+  //vPoint := FModalForm.OwnerInternalForm.ClientToScreen(Point(0,0));
+  //Left := vPoint.X + Round(FModalForm.OwnerInternalForm.Width / 2);
+  //Top := vPoint.Y + Round(FModalForm.OwnerInternalForm.Height / 2);;
+  //Width := 0;
+  //Height := 0;
+
+  ResizeContainerWindow;
+
+  Show;
+
+  FContainerWindow.Show;
+  FModalForm.Show;
+
+  FTransparentAnimation.Stop;
+  FTransparentAnimation.StartValue := 0;
+  FTransparentAnimation.StopValue := 100;
+  FTransparentAnimation.Start;
+
+  ResizeContainerWindow;
+
+end;
+
+procedure TOrganizerModalWindow.Hide;
+begin
+  FTransparentAnimation.Stop;
+  FTransparentAnimation.StartValue := 100;
+  FTransparentAnimation.StopValue := 0;
+  FTransparentAnimation.Start;
+end;
+
+{ TOrganizerPopup }
+
+function TOrganizerPopup.GetIsMouseIn: Boolean;
+var
+  vPoint: TPoint;
+begin
+  vPoint := Mouse.CursorPos;
+  Result := (vPoint.X >= Left) and (vPoint.X <= Left + Width)
+    and (vPoint.Y >= Top) and (vPoint.Y <= Top + Height);
+end;
+
+function TOrganizerPopup.GetHeightInternal: Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to ControlCount - 1 do
+    if Controls[I].Top + Controls[I].Height > Result then
+      Result := Controls[I].Top + Controls[I].Height;
+end;
+
+procedure TOrganizerPopup.AnimatedFloatEvent(Sender: TObject;
+  CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+begin
+  Height := Round(CurrentValue);
+end;
+
+constructor TOrganizerPopup.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+
+  FAnimatedFloat := TAnimatedFloat.Create;
+  FAnimatedFloat.Time := 500;
+  FAnimatedFloat.AnimatedFloatType := aftTangensH;
+  FAnimatedFloat.AnimatedFloatEvent := @AnimatedFloatEvent;
+
+  if Assigned(Application.MainForm) and (Application.MainForm is TOrganizerForm) then
+    TOrganizerForm(Application.MainForm).AddOrganizerPopup(Self);
+end;
+
+destructor TOrganizerPopup.Destroy;
+begin
+  if Assigned(Application.MainForm) and (Application.MainForm is TOrganizerForm) then
+    TOrganizerForm(Application.MainForm).RemoveOrganizerPopup(Self);
+
+  FAnimatedFloat.Free;
+  inherited Destroy;
+end;
+
+procedure TOrganizerPopup.ShowAnimation;
+var
+  vHeight: Integer;
+begin
+  AutoSize := False;
+  Height := 0;
+  Show;
+  FAnimatedFloat.Stop;
+  FAnimatedFloat.StartValue := 0;
+  FAnimatedFloat.StopValue := GetHeightInternal;
+  FAnimatedFloat.Start;
+end;
+
+{ TOrganizerForm }
+
+procedure TOrganizerForm.OnTransparentAnimationEvent(Sender: TObject;
+  CurrentProgressProcent, CurrentProcent, CurrentValue: Double);
+var
+  vTempWidth,
+  vtempHeight: Double;
+begin
+  FTransparentBackground.ColorOpacity := Round(CurrentValue);
+
+  FTransparentBackground.Width := Round(Width * CurrentValue / 100);
+  FTransparentBackground.Height := Round(Height * CurrentValue / 100);
+  //if Width - FTransparentBackground.Width <> 0 then
+  //  FTransparentBackground.Left := Round((Width - FTransparentBackground.Width) / 2)
+  //else
+  //  FTransparentBackground.Left := 0;
+  //if Height - FTransparentBackground.Height <> 0 then
+  //  FTransparentBackground.Top := Round((Height - FTransparentBackground.Height) / 2)
+  //else
+  //  FTransparentBackground.Top := 0;
+
+
+  vTempWidth := Width * 0.8;
+  vtempHeight := Height * 0.8;
+  FTransparentBackground.Width := Round(vTempWidth + (Width - vTempWidth) * CurrentValue / 100);
+  FTransparentBackground.Height := Round(vtempHeight + (Height - vtempHeight) * CurrentValue / 100);
+  FTransparentBackground.Left := Round((Width - FTransparentBackground.Width) / 2);
+  FTransparentBackground.Top := Round((Height - FTransparentBackground.Height) / 2);
+
+
+  if (CurrentProgressProcent = 100) and (FTransparentAnimation.StopValue = 0) then
+    FTransparentPanel.Visible := False;
+end;
+
+procedure TOrganizerForm.OnDeactivateInternal(Sender: TObject);
+begin
+  UpdateOrganizerPopup;
+end;
+
+procedure TOrganizerForm.OnUserInputInternal(Sender: TObject; Msg: Cardinal);
+begin
+  if Msg = LM_LBUTTONDOWN then
+    UpdateOrganizerPopup;
+end;
+
+procedure TOrganizerForm.Activate;
+begin
+  inherited Activate;
+  if FFirstActive and IsMainForm then
+  begin
+    FFirstActive := False;
+    Application.OnDeactivate := @OnDeactivateInternal;
+    Application.OnUserInput := @OnUserInputInternal;
+  end;
+end;
+
+procedure TOrganizerForm.BoundsChanged;
+begin
+  inherited BoundsChanged;
+  UpdateOrganizerPopup;
+  UpdateModalWindows;
+end;
+
+constructor TOrganizerForm.Create(TheOwner: TComponent);
+begin
+  if TheOwner is TOrganizerForm then
+    FOwnerForm := TOrganizerForm(TheOwner);
+  FFirstActive := True;
+  FToClose := False;
+
+  FTransparentPanel := nil;
+  FTransparentImage := nil;
+  FTransparentBackground := nil;
+  FTransparentAnimation := nil;
+
+  FOrganizerPopupList := nil;
+
+  FModalWindowList := nil;
+
+  inherited Create(TheOwner);
+end;
+
+destructor TOrganizerForm.Destroy;
+begin
+  if Assigned(FTransparentAnimation) then
+    FTransparentAnimation.Free;
+  while Assigned(FModalWindowList) and (FModalWindowList.Count > 0) do
+    TOrganizerModalWindow(FModalWindowList[0]).Free;
+  if Assigned(FModalWindowList) then
+    FModalWindowList.Free;
+  inherited Destroy;
+  if Assigned(FOrganizerPopupList) then
+    FOrganizerPopupList.Free;
+end;
+
+procedure TOrganizerForm.Close;
+begin
+  if Assigned(Parent) and (Parent is THintWindow) then
+    FToClose := True
+  else
+    inherited Close;
+end;
+
+procedure TOrganizerForm.UpdateModalWindows;
+var
+  I: Integer;
+begin
+  if Assigned(FModalWindowList) then
+    for I := 0 to FModalWindowList.Count - 1 do
+      ResizeModalWindow(TOrganizerModalWindow(FModalWindowList[0]));
+end;
+
+procedure TOrganizerForm.ResizeModalWindow(ModalWindow: TOrganizerModalWindow);
+var
+  vPoint: TPoint;
+begin
+  vPoint := ClientToScreen(Point(0,0));
+  ModalWindow.Left := vPoint.X;
+  ModalWindow.Top := vPoint.Y;
+  ModalWindow.Width := Width;
+  ModalWindow.Height := Height;
+end;
+
+procedure TOrganizerForm.AddModalWindow(ModalWindow: TOrganizerModalWindow);
+begin
+  if not Assigned(FModalWindowList) then
+    FModalWindowList := TList.Create;
+  FModalWindowList.Add(ModalWindow);
+end;
+
+procedure TOrganizerForm.RemoveModalWindow(ModalWindow: TOrganizerModalWindow);
+begin
+  if Assigned(FModalWindowList) then
+  begin
+    FModalWindowList.Remove(ModalWindow);
+    if FModalWindowList.Count = 0 then
+    begin
+      FModalWindowList.Free;
+      FModalWindowList := nil;
+    end;
+  end;
+end;
+
+procedure TOrganizerForm.AddOrganizerPopup(OrganizerPopup: TOrganizerPopup);
+begin
+  if IsMainForm then
+  begin
+    if not Assigned(FOrganizerPopupList) then
+      FOrganizerPopupList := TList.Create;
+    FOrganizerPopupList.Add(OrganizerPopup);
+  end;
+end;
+
+procedure TOrganizerForm.RemoveOrganizerPopup(OrganizerPopup: TOrganizerPopup);
+begin
+  if IsMainForm and Assigned(FOrganizerPopupList) then
+  begin
+    FOrganizerPopupList.Remove(OrganizerPopup);
+    if FOrganizerPopupList.Count = 0 then
+    begin
+      FOrganizerPopupList.Free;
+      FOrganizerPopupList := nil;
+    end;
+  end;
+end;
+
+procedure TOrganizerForm.UpdateOrganizerPopup;
+var
+  I: Integer;
+  vActiveControl: TWinControl;
+begin
+  if Assigned(FOrganizerPopupList) then
+  begin
+    if ActiveControl <> nil then
+      vActiveControl := GetParentForm(ActiveControl)
+    else
+      vActiveControl := nil;
+    try
+      for I := FOrganizerPopupList.Count - 1 downto 0 do
+        if Assigned(FOrganizerPopupList)
+          and not TOrganizerPopup(FOrganizerPopupList[I]).IsMouseIn
+        then
+          TOrganizerPopup(FOrganizerPopupList[I]).Free;
+    finally
+      //if Assigned(vActiveControl) then
+      //  vActiveControl.SetFocus;
+    end;
+  end;
+end;
+
+function TOrganizerForm.GetIsMainform: Boolean;
+begin
+  Result := Application.MainForm = Self;
+end;
+
+procedure TOrganizerForm.ShowTransparentBackground(InternalForm: TOrganizerForm);
+var
+  vBitmap: TBitmap;
+  vPoint: TPoint;
+begin
+  if not Assigned(FTransparentPanel) then
+  begin
+    FTransparentPanel := TPanel.Create(Self);
+    FTransparentPanel.Parent := Self;
+    FTransparentPanel.Width := Width;
+    FTransparentPanel.Height := Height;
+    FTransparentPanel.Anchors := [akBottom, akLeft, akRight, akTop];
+    FTransparentPanel.BevelOuter := TPanelBevel.bvNone;
+    FTransparentPanel.Caption := '';
+    FTransparentPanel.Visible := False;
+    FTransparentPanel.SendToBack;
+
+    FTransparentImage := TImage.Create(FTransparentPanel);
+    FTransparentImage.Parent := FTransparentPanel;
+    FTransparentImage.Align := alClient;
+
+    FTransparentBackground := TBGRAGraphicControl.Create(FTransparentPanel);
+    FTransparentBackground.Parent := FTransparentPanel;
+    FTransparentBackground.BevelOuter := TPanelBevel.bvNone;
+    FTransparentBackground.Caption := '';
+    FTransparentBackground.Color := clBlack;
+
+    FTransparentAnimation := TAnimatedFloat.Create;
+    FTransparentAnimation.AnimatedFloatType := aftTangensH;
+    FTransparentAnimation.AnimatedFloatEvent := @OnTransparentAnimationEvent;
+  end;
+  vBitmap := GetFormImage;
+  try
+    FTransparentImage.Picture.Assign(vBitmap);
+  finally
+    vBitmap.Free;
+  end;
+
+  InternalForm.Parent := FTransparentPanel;
+  InternalForm.Left := Round((Width - InternalForm.Width) / 2);
+  InternalForm.Top := Round((Height - InternalForm.Height) / 2);
+  //vPoint := ClientToScreen(Point(0,0));
+  //InternalForm.Left := vPoint.X + Round((Width - InternalForm.Width) / 2);
+  //InternalForm.Top := vPoint.Y + Round((Height - InternalForm.Height) / 2);
+
+  FTransparentBackground.Width := 0;
+  FTransparentBackground.Height := 0;
+  FTransparentBackground.Left := Round((Width - FTransparentBackground.Width) / 2);
+  FTransparentBackground.Top := Round((Height - FTransparentBackground.Height) / 2);
+  FTransparentBackground.ColorOpacity := 0;
+
+  FTransparentPanel.Visible := True;
+  FTransparentPanel.BringToFront;
+
+  FTransparentAnimation.Stop;
+  FTransparentAnimation.Time := 500;
+  FTransparentAnimation.StartValue := 0;
+  FTransparentAnimation.StopValue := 100;
+  FTransparentAnimation.Start;
+end;
+
+procedure TOrganizerForm.HideTransparentBackground;
+begin
+  if Assigned(FTransparentPanel) then
+  begin
+    FTransparentAnimation.Stop;
+    FTransparentAnimation.Time := 200;
+    FTransparentAnimation.StartValue := 100;
+    FTransparentAnimation.StopValue := 0;
+    FTransparentAnimation.Start;
+  end;
+end;
+
+procedure TOrganizerForm.TransparentShowModal;
+var
+  vOrganizerModalWindow: TOrganizerModalWindow;
+begin
+  if Assigned(OwnerInternalForm) then
+  begin
+    vOrganizerModalWindow := TOrganizerModalWindow.Create(Self);
+    try
+      vOrganizerModalWindow.ShowModal;
+      while not FToClose do
+      begin
+        Application.ProcessMessages;
+        Sleep(1);
+      end;
+      OwnerInternalForm.SetFocus;
+      vOrganizerModalWindow.FContainerWindow.Visible := False;
+      vOrganizerModalWindow.Hide;
+      while vOrganizerModalWindow.AlphaBlendValue > 0 do
+      begin
+        Application.ProcessMessages;
+        Sleep(1);
+      end;
+    finally
+      vOrganizerModalWindow.Free;
+    end;
+  end;
+end;
+
+procedure TOrganizerForm.TransparentShowModal2;
+begin
+  if Assigned(OwnerInternalForm) then
+  begin
+    OwnerInternalForm.ShowTransparentBackground(Self);
+    try
+      Show;
+      while Visible do
+      begin
+        Application.ProcessMessages;
+        Sleep(1);
+      end;
+    finally
+      OwnerInternalForm.HideTransparentBackground;
+    end;
+  end;
+end;
+
+end.
+
