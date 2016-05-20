@@ -1818,7 +1818,7 @@ begin
   FExpanderImage.Align := alRight;
   FExpanderImage.Center := True;
   FExpanderImage.Enabled := False;
-  FExpanderImage.Picture.LoadFromFile('Icons/fa-angle-down_15_0_c8c8c8_none.png');
+  FExpanderImage.Picture.LoadFromFile('../../Resources/Icons/fa-angle-down_15_0_c8c8c8_none.png');
 end;
 
 { TOrganizerButton }

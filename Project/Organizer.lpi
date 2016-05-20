@@ -74,12 +74,12 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="Organizer"/>
+      <Filename Value="../Bin/$(TargetCPU)-$(TargetOS)/Organizer"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="../Source/Forms;../Source/Utils;../Source/OrganizerControls;../Source/System"/>
-      <UnitOutputDirectory Value="../lib/$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="../Lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
       <Options>

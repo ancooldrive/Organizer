@@ -1801,7 +1801,7 @@ begin
   vOrganizerPopup.Left := vPoint.X;
   vOrganizerPopup.Top := vPoint.Y + FContainer.Height;
   vOrganizerPopup.Width := FContainer.Width;
-  vOrganizerPopup.Show;
+  vOrganizerPopup.ShowAnimation;
 end;
 
 procedure TOrganizerComboBox.InitControl;

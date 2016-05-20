@@ -252,13 +252,13 @@ begin
   pCalendarContent.Visible := False;
   pToDoContent.Visible := False;
 
-  TOrganizerMenuButton.Create(pDashboard, 'Dashboard', 'Icons/fa-dashcube_16_0_c8c8c8_none.png', $002b39c0);
-  TOrganizerMenuButton.Create(pCalendar, 'Calendar', 'Icons/fa-calendar_16_0_c8c8c8_none.png', $000054d3);
-  TOrganizerMenuButton.Create(pToDo, 'To-do list', 'Icons/octicon-checklist_16_0_c8c8c8_none.png', $00129cf3);
-  TOrganizerMenuButton.Create(pMeetings, 'Meetings', 'Icons/icomoon-user-tie_16_0_c8c8c8_none.png', $000fc4f1);
-  TOrganizerMenuButton.Create(pContacts, 'Contact list', 'Icons/fa-users_16_0_c8c8c8_none.png', $0060ae27);
-  TOrganizerMenuButton.Create(pAlarms, 'Alarms', 'Icons/icomoon-alarm_16_0_c8c8c8_none.png', $00b98029);
-  TOrganizerMenuButton.Create(pSettings, 'Settings', 'Icons/octicon-settings_16_0_c8c8c8_none.png', $00A76177);
+  TOrganizerMenuButton.Create(pDashboard, 'Dashboard', '../../Resources/Icons/fa-dashcube_16_0_c8c8c8_none.png', $002b39c0);
+  TOrganizerMenuButton.Create(pCalendar, 'Calendar', '../../Resources/Icons/fa-calendar_16_0_c8c8c8_none.png', $000054d3);
+  TOrganizerMenuButton.Create(pToDo, 'To-do list', '../../Resources/Icons/octicon-checklist_16_0_c8c8c8_none.png', $00129cf3);
+  TOrganizerMenuButton.Create(pMeetings, 'Meetings', '../../Resources/Icons/icomoon-user-tie_16_0_c8c8c8_none.png', $000fc4f1);
+  TOrganizerMenuButton.Create(pContacts, 'Contact list', '../../Resources/Icons/fa-users_16_0_c8c8c8_none.png', $0060ae27);
+  TOrganizerMenuButton.Create(pAlarms, 'Alarms', '../../Resources/Icons/icomoon-alarm_16_0_c8c8c8_none.png', $00b98029);
+  TOrganizerMenuButton.Create(pSettings, 'Settings', '../../Resources/Icons/octicon-settings_16_0_c8c8c8_none.png', $00A76177);
 
   Panel18.Color := $002b39c0;
   Panel19.Color := $000054d3;
@@ -267,7 +267,7 @@ begin
 
   TOrganizerEdit.Create(Panel9, 'First name');
 
-  TOrganizerCheckBox.Create(Panel10, 'Active alarm', 'Icons/icomoon-checkmark_14_0_ffffff_none.png');
+  TOrganizerCheckBox.Create(Panel10, 'Active alarm', '../../Resources/Icons/icomoon-checkmark_14_0_ffffff_none.png');
 
   TOrganizerButton.Create(Panel1, 'Post');
   TOrganizerCancelButton.Create(Panel16, 'Cancel');
