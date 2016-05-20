@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="47">
+      <Unit0>
+        <Filename Value="Organizer.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="23"/>
+        <UsageCount Value="191"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <TopLine Value="225"/>
+        <CursorPos X="21" Y="240"/>
+        <UsageCount Value="191"/>
+        <Bookmarks Count="2">
+          <Item0 Y="170" ID="2"/>
+          <Item1 X="6" Y="111" ID="1"/>
+        </Bookmarks>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../Source/Utils/uAnimatedFloat.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="25" Y="11"/>
+        <UsageCount Value="191"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../Source/OrganizerControls/uOrganizerControls.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1791"/>
+        <CursorPos X="32" Y="1804"/>
+        <UsageCount Value="191"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../Source/Forms/uAddEditCalendarEventForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AddEditCalendarEventForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="41"/>
+        <CursorPos X="52" Y="42"/>
+        <UsageCount Value="81"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../Source/System/uOrganizerForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="296"/>
+        <CursorPos X="27" Y="301"/>
+        <UsageCount Value="53"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../Source/System/uInternalForm.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="160" Y="7"/>
+        <UsageCount Value="51"/>
+        <Bookmarks Count="1">
+          <Item0 X="21" Y="8" ID="1"/>
+        </Bookmarks>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../Source/Forms/uTransparentForm.pas"/>
+        <ComponentName Value="TransparentForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="30" Y="23"/>
+        <UsageCount Value="14"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../Source/System/uModalForm.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="64" Y="25"/>
+        <UsageCount Value="28"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../Source/OrganizerControls/uOanizerControls.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="4"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../../bgracontrols/bgragraphiccontrol.pas"/>
+        <UnitName Value="BGRAGraphicControl"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="69"/>
+        <CursorPos X="14" Y="85"/>
+        <UsageCount Value="7"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../../bgracontrols/bctypes.pas"/>
+        <UnitName Value="BCTypes"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="33"/>
+        <CursorPos X="22" Y="49"/>
+        <UsageCount Value="7"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1023"/>
+        <CursorPos X="14" Y="1039"/>
+        <UsageCount Value="5"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="723"/>
+        <CursorPos Y="750"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/sysutils/sysinth.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="3" Y="31"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/sysutils/datih.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="110"/>
+        <CursorPos X="10" Y="125"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/sysutils/dati.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="219"/>
+        <CursorPos X="3" Y="239"/>
+        <UsageCount Value="9"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1021"/>
+        <CursorPos X="3" Y="1031"/>
+        <UsageCount Value="6"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/interfaces/gtk2/gtk2winapi.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="6237"/>
+        <CursorPos Y="6254"/>
+        <UsageCount Value="1"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/wincontrol.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3793"/>
+        <CursorPos Y="3819"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/lclclasses.pp"/>
+        <UnitName Value="LCLClasses"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="26"/>
+        <CursorPos X="3" Y="42"/>
+        <UsageCount Value="7"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/classes/classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1994"/>
+        <CursorPos X="3" Y="1740"/>
+        <UsageCount Value="6"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/inc/objpash.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="172"/>
+        <CursorPos X="8" Y="188"/>
+        <UsageCount Value="2"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="309"/>
+        <CursorPos X="15" Y="322"/>
+        <UsageCount Value="6"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/lmessages.pp"/>
+        <UnitName Value="LMessages"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="26" Y="68"/>
+        <UsageCount Value="7"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2792"/>
+        <CursorPos X="14" Y="2807"/>
+        <UsageCount Value="10"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../../../bgrabitmap8.8.4/bgradefaultbitmap.pas"/>
+        <UnitName Value="BGRADefaultBitmap"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="744"/>
+        <CursorPos X="15" Y="760"/>
+        <UsageCount Value="5"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../../../bgrabitmap8.8.4/bgrapixel.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="257"/>
+        <CursorPos X="3" Y="272"/>
+        <UsageCount Value="5"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="753"/>
+        <CursorPos X="14" Y="769"/>
+        <UsageCount Value="10"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/customform.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2893"/>
+        <CursorPos X="11" Y="2919"/>
+        <UsageCount Value="6"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/application.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1451"/>
+        <CursorPos X="3" Y="1454"/>
+        <UsageCount Value="10"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/customcombobox.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="245"/>
+        <CursorPos X="28" Y="259"/>
+        <UsageCount Value="6"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/lclintfh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="99"/>
+        <CursorPos X="10" Y="115"/>
+        <UsageCount Value="6"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/intfbaselcl.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="644"/>
+        <CursorPos X="3" Y="649"/>
+        <UsageCount Value="6"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/menus.pp"/>
+        <UnitName Value="Menus"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="322"/>
+        <CursorPos X="15" Y="305"/>
+        <UsageCount Value="7"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/popupmenu.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="40"/>
+        <CursorPos X="17" Y="49"/>
+        <UsageCount Value="7"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/menu.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="79"/>
+        <CursorPos X="3" Y="81"/>
+        <UsageCount Value="7"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="../../../../../lazarus/lcl/include/control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3252"/>
+        <CursorPos Y="3271"/>
+        <UsageCount Value="9"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="../../../../../lazarus/lcl/include/customform.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2819"/>
+        <CursorPos Y="2837"/>
+        <UsageCount Value="9"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/hintwindow.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="263"/>
+        <CursorPos X="29" Y="289"/>
+        <UsageCount Value="10"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/themes.pas"/>
+        <UnitName Value="Themes"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos X="3" Y="409"/>
+        <UsageCount Value="10"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/include/winapih.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="10" Y="268"/>
+        <UsageCount Value="10"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/types.pp"/>
+        <UnitName Value="Types"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="80"/>
+        <CursorPos X="3" Y="96"/>
+        <UsageCount Value="10"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/widgetset/wsforms.pp"/>
+        <UnitName Value="WSForms"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="281"/>
+        <CursorPos Y="308"/>
+        <UsageCount Value="10"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="/usr/share/fpcsrc/3.0.0/rtl/objpas/math.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="150"/>
+        <CursorPos X="10" Y="166"/>
+        <UsageCount Value="10"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="/usr/share/lazarus/1.6/lcl/interfaces/gtk2/gtk2wsfactory.pas"/>
+        <UnitName Value="Gtk2WSFactory"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="549"/>
+        <CursorPos Y="566"/>
+        <UsageCount Value="10"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="/usr/share/lazarus/1.6/components/lazutils/lazmethodlist.pas"/>
+        <UnitName Value="LazMethodList"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="177"/>
+        <CursorPos X="3" Y="179"/>
+        <UsageCount Value="10"/>
+      </Unit46>
+    </Units>
+    <JumpHistory Count="12" HistoryIndex="11">
+      <Position1>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="150" Column="40" TopLine="143"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="161" Column="173" TopLine="147"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="96" Column="18" TopLine="81"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="134" TopLine="119"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="133" TopLine="118"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="127" Column="62" TopLine="118"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../Source/Forms/uMainForm.pas"/>
+        <Caret Line="92" TopLine="77"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../Source/OrganizerControls/uOrganizerControls.pas"/>
+        <Caret Line="1804" Column="3" TopLine="1791"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../Source/System/uOrganizerForm.pas"/>
+        <Caret Line="24" Column="29"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../Source/System/uOrganizerForm.pas"/>
+        <Caret Line="285" Column="39" TopLine="278"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../Source/System/uOrganizerForm.pas"/>
+        <Caret Line="21" Column="41" TopLine="10"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../Source/System/uOrganizerForm.pas"/>
+        <Caret Line="327" Column="48" TopLine="318"/>
+      </Position12>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

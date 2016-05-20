@@ -1,0 +1,46 @@
+object AddEditCalendarEventForm: TAddEditCalendarEventForm
+  Left = 689
+  Height = 214
+  Top = 770
+  Width = 315
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'AddEditCalendarEventForm'
+  ClientHeight = 214
+  ClientWidth = 315
+  Color = clWhite
+  LCLVersion = '1.6.0.4'
+  object pPost: TPanel
+    Left = 208
+    Height = 26
+    Top = 184
+    Width = 98
+    TabOrder = 0
+    OnClick = pPostClick
+  end
+  object pCancel: TPanel
+    Left = 88
+    Height = 26
+    Top = 184
+    Width = 98
+    TabOrder = 1
+    OnClick = pCancelClick
+  end
+  object pCancel1: TPanel
+    Left = 8
+    Height = 26
+    Top = 8
+    Width = 300
+    TabOrder = 2
+    OnClick = pCancelClick
+  end
+  object Panel2: TPanel
+    Left = 8
+    Height = 25
+    Top = 48
+    Width = 162
+    BevelOuter = bvNone
+    Caption = 'Panel2'
+    TabOrder = 3
+  end
+end
