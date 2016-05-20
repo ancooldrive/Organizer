@@ -39,7 +39,7 @@ var
 begin
   vAddEditCalendarEventForm := TAddEditCalendarEventForm.Create(OwnerForm);
   try
-    vAddEditCalendarEventForm.TransparentShowModal;
+    vAddEditCalendarEventForm.TransparentShowModal2;
   finally
     vAddEditCalendarEventForm.Free;
   end;
